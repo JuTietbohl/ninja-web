@@ -89,9 +89,9 @@ function chooseBattle() {
 function battle(opponent) {
     if (opponent === 'Ambos') {
         audio.play();
-        content.innerHTML = `<p>${nickname}, Rock Lee e Gaara! NUMB!!!</p><p>Press F5 to quit.</p>`;
+        content.innerHTML = `<p>${nickname}, Rock Lee and Gaara! NUMB!!!</p><p>Press F5 to quit.</p>`;
     } else {
-        content.innerHTML = `<p>${name} está em uma batalha com ${opponent}!</p><p>Press F5 to quit.</p>`;
+        content.innerHTML = `<p>${name} in a battle against ${opponent}!</p><p>Press F5 to quit.</p>`;
     }
 }
 

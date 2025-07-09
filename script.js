@@ -6,11 +6,19 @@ let nickname = '';
 
 function askName() {
     content.innerHTML = `
-        <p>What is your name?</p>
-        <input id="nameInput" type="text">
-        <button onclick="saveName()">Next</button>
+        <form id="nameForm">
+            <p>Please, put your name:</p>
+            <input id="nameInput" type="text" required>
+            <button type="submit">Next</button>
+        </form>
     `;
+
+    document.getElementById('nameForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        saveName();
+    });
 }
+
 
 function saveName() {
     name = document.getElementById('nameInput').value;
@@ -19,11 +27,19 @@ function saveName() {
 
 function askNickname() {
     content.innerHTML = `
-        <p>What is your nickname?</p>
-        <input id="nickInput" type="text">
-        <button onclick="saveNickname()">Next</button>
+        <form id="nickForm">
+            <p>What is your nickname?</p>
+            <input id="nickInput" type="text" required>
+            <button type="submit">Next</button>
+        </form>
     `;
+
+    document.getElementById('nickForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        saveNickname();
+    });
 }
+
 
 function saveNickname() {
     nickname = document.getElementById('nickInput').value;

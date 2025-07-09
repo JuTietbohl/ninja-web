@@ -3,6 +3,7 @@ const audio = document.getElementById('audio');
 
 let name = '';
 let nickname = '';
+let confirmationStep = 0;
 
 function askName() {
     content.innerHTML = `
@@ -18,7 +19,6 @@ function askName() {
         saveName();
     });
 }
-
 
 function saveName() {
     name = document.getElementById('nameInput').value;
@@ -40,39 +40,43 @@ function askNickname() {
     });
 }
 
-
 function saveNickname() {
     nickname = document.getElementById('nickInput').value;
+    confirmationStep = 0;
     askIfNinja();
 }
 
-function askIfNinja(attempt = 1) {
+function askIfNinja() {
     content.innerHTML = `
         <p>${name}, are you a ninja?</p>
-        <button onclick="handleNinja(true)">Yes</button>
-        <button onclick="handleNinja(false, ${attempt})">No</button>
+        <button onclick="handleNinjaAnswer(true)">Yes</button>
+        <button onclick="handleNinjaAnswer(false)">No</button>
     `;
 }
 
-function handleNinja(isNinja, attempt = 1) {
+function handleNinjaAnswer(isNinja) {
     if (isNinja) {
         chooseBattle();
     } else {
-        if (attempt === 1) {
+        if (confirmationStep === 0) {
+            confirmationStep++;
             content.innerHTML = `
-                <p>Are you sure?</p>
-                <button onclick="askIfNinja(2)">Yes</button>
-                <button onclick="askIfNinja()">No</button>
+                <p>You sure?</p>
+                <button onclick="handleNinjaAnswer(false)">Yes</button>
+                <button onclick="handleNinjaAnswer(true)">No</button>
             `;
-        } else if (attempt === 2) {
+        } else if (confirmationStep === 1) {
+            confirmationStep++;
             content.innerHTML = `
-                <p>Are you really sure? That doesn’t sound right.</p>
-                <button onclick="askIfNinja(3)">Yes</button>
-                <button onclick="askIfNinja()">No</button>
+                <p>You really sure? That doesn’t sound right.</p>
+                <button onclick="handleNinjaAnswer(false)">Yes</button>
+                <button onclick="handleNinjaAnswer(true)">No</button>
             `;
         } else {
-            content.innerHTML = `<p>That’s your final answer? Really? Think again.</p>
-                <button onclick="chooseBattle()">Ok, I'm a ninja</button>`;
+            content.innerHTML = `
+                <p>That’s your final answer? Really? Think again.</p>
+                <button onclick="handleNinjaAnswer(true)">Ok, I'm a ninja</button>
+            `;
         }
     }
 }
